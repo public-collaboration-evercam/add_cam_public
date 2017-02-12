@@ -1,3 +1,4 @@
+default_page = 1
 sendAJAXRequest = (settings) ->
   token = $('meta[name="csrf-token"]')
   if token.size() > 0
@@ -6,13 +7,27 @@ sendAJAXRequest = (settings) ->
     settings.headers = headers
   xhrRequestChangeMonth = jQuery.ajax(settings)
 
+onNext = ->
+  $(".pagination").on "click", "#next", ->
+    $("#main-div").html("")
+    getAndBind(++default_page)
+    console.log "am next"
+
+onPrevious = ->
+  $(".pagination").on "click", "#previous", ->
+    $("#main-div").html("")
+    getAndBind(--default_page)
+    console.log "am previous"
+
+
 getAndBind = (page_number) ->
-  grandDiv = $("#main-div")
+  $(".loader").show()
   onError = (result, status, jqXHR) ->
     # $.notify("#{result.responseText}", "error")
     false
 
   onSuccess = (result, status, jqXHR) ->
+    $(".loader").hide()
     console.log result.data
     result.data.forEach (camera) ->
       content = 
@@ -40,7 +55,9 @@ getAndBind = (page_number) ->
 
 onPageLoad = ->
   $(window).load ->
-    getAndBind(1)
+    getAndBind(default_page)
 
 window.initializeMain = ->
   onPageLoad()
+  onPrevious()
+  onNext()

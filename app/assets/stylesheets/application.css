@@ -9,7 +9,6 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *
  *= require_self
  */
 
@@ -24,6 +23,19 @@
   overflow: hidden;
   height: auto;
   font-family: 'Open Sans', sans-serif;
+}
+
+.loader  {
+  bottom: 0;
+  color: #3D3D3D;
+  font-size: 16px;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 100px;
 }
 
 #amBox {
@@ -52,7 +64,7 @@
   font-size: 15px;
   font-weight: 700;
   display: inline-block;
-  width: 270px;
+  width: 260px;
   overflow: hidden;
   text-align: center;
 }
