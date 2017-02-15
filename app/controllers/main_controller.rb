@@ -17,9 +17,19 @@ class MainController < ApplicationController
     @records = mixing.map do |ip_port, info|
       {
         image_url: ip_port,
-        title: info
+        title: info,
+        external_host: get_host_port(ip_port, 0),
+        external_http_port: get_host_port(ip_port, 1),
+        vendor: "axis",
+        name: "PublicCollab Evercam"
       }
     end
     render json: @records.to_json
+  end
+
+  def get_host_port(ip_port, value)
+    val = ip_port.split("/")
+    new_val = val[2].split(":")
+    new_val[value]
   end
 end

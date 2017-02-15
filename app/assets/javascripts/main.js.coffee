@@ -38,7 +38,7 @@ getAndBind = (page_number) ->
             <img src='#{camera.image_url}' class='image-width'>
           </div>
           <div id='text-div'>#{camera.title}</div>
-          <div id='add-to-account'>
+          <div id='add-to-account' camera-name='#{camera.name}' camera-vendor='#{camera.vendor}' camera-ip='#{camera.external_host}' camera-port='#{camera.external_http_port}'>
             Add Me
           </div>
         </div>"
