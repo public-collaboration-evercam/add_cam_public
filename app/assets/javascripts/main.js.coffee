@@ -21,6 +21,8 @@ onPrevious = ->
 
 
 getAndBind = (page_number) ->
+  data = {}
+  data.page_number = page_number
   $(".loader").show()
   onError = (result, status, jqXHR) ->
     # $.notify("#{result.responseText}", "error")
@@ -28,14 +30,14 @@ getAndBind = (page_number) ->
 
   onSuccess = (result, status, jqXHR) ->
     $(".loader").hide()
-    console.log result.data
-    result.data.forEach (camera) ->
+    console.log result
+    result.forEach (camera) ->
       content = 
         "<div id='amBox'>
           <div id='image-top'>
-            <img src='#{camera.image_src}' class='image-width'>
+            <img src='#{camera.image_url}' class='image-width'>
           </div>
-          <div id='text-div'>#{camera.camera_name}</div>
+          <div id='text-div'>#{camera.title}</div>
           <div id='add-to-account'>
             Add Me
           </div>
@@ -46,10 +48,11 @@ getAndBind = (page_number) ->
   settings =
     cache: false
     dataType: 'json'
+    data: data
     error: onError
     success: onSuccess
     type: "GET"
-    url: "http://localhost:4000/api/cameras/axis/#{page_number}"
+    url: "/load_cameras_details"
 
   $.ajax(settings)
 
