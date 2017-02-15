@@ -38,7 +38,7 @@ getAndBind = (page_number) ->
             <img src='#{camera.image_url}' class='image-width'>
           </div>
           <div id='text-div'>#{camera.title}</div>
-          <div id='add-to-account' camera-name='#{camera.name}' camera-vendor='#{camera.vendor}' camera-ip='#{camera.external_host}' camera-port='#{camera.external_http_port}'>
+          <div class='add-to-account' camera-name='#{camera.name}' camera-vendor='#{camera.vendor}' camera-ip='#{camera.external_host}' camera-port='#{camera.external_http_port}' user-api-id='#{camera.api_id}' user-api-key='#{camera.api_key}'>
             Add Me
           </div>
         </div>"
@@ -60,7 +60,41 @@ onPageLoad = ->
   $(window).load ->
     getAndBind(default_page)
 
+onAddCamera = ->
+  $("body").on "click", "div.add-to-account", ->
+    data = {}
+    data.name = $(this).attr("camera-name")
+    data.vendor = $(this).attr("camera-vendor")
+    data.external_http_port = $(this).attr("camera-port")
+    data.external_host = $(this).attr("camera-ip")
+    data.api_id = $(this).attr("user-api-id")
+    data.api_key = $(this).attr("user-api-key")
+    sendToDB(data)
+
+sendToDB = (data) ->
+  $(".loader").show()
+  onError = (result, status, jqXHR) ->
+    # $.notify("#{result.responseText}", "error")
+    false
+
+  onSuccess = (result, status, jqXHR) ->
+    $(".loader").hide()
+    console.log result
+    true
+
+  settings =
+    cache: false
+    dataType: 'json'
+    data: data
+    error: onError
+    success: onSuccess
+    type: "POST"
+    url: "https://media.evercam.io/v1/cameras"
+
+  $.ajax(settings)
+
 window.initializeMain = ->
   onPageLoad()
   onPrevious()
   onNext()
+  onAddCamera()

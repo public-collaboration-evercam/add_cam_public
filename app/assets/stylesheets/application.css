@@ -69,7 +69,7 @@
   text-align: center;
 }
 
-#add-to-account {
+.add-to-account {
   background-color: #F32C52;
   color: white;
   width: 150px;
@@ -80,4 +80,5 @@
   padding: 10px;
   text-align: center;
   display: inline-block;
+  cursor: pointer;
 }
