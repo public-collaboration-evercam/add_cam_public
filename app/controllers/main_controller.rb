@@ -21,7 +21,7 @@ class MainController < ApplicationController
         external_host: get_host_port(ip_port, 0),
         external_http_port: get_host_port(ip_port, 1),
         vendor: "axis",
-        name: "PublicCollab Evercam",
+        name: "#{info.partition(" ").first}",
         api_id: "#{ENV['USER_API_ID']}",
         api_key: "#{ENV['USER_API_KEY']}"
       }

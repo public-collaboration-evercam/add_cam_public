@@ -67,6 +67,8 @@ onAddCamera = ->
     data.vendor = $(this).attr("camera-vendor")
     data.external_http_port = $(this).attr("camera-port")
     data.external_host = $(this).attr("camera-ip")
+    data.is_public = true
+    data.is_discoverable = true
     data.api_id = $(this).attr("user-api-id")
     data.api_key = $(this).attr("user-api-key")
     sendToDB(data)
